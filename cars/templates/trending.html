@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+{% comment %} search {% endcomment %}
+<div class='search '>
+    <div class='secContainer container '>
+        <h3  class='title'>Which vehicule you are looking for? 
+        </h3>
+        <div class='searchDiv grid'>            
+            <form method="GET" action="{% url 'trendings' %}" >
+            <input type="text" name="type" placeholder="Type" value="{{ type_of_cylinder }}" />
+            <input type="text" name="year" placeholder="Year" value="{{ year }}" />
+            <input  type="text" name="model" placeholder="Model" value="{{ model }}"/>
+            <input  type="number" name="price" placeholder="Price" value="{{ price }}"/>
+            <button  class='btn primaryBtn flex'>
+                <AiOutlineSearch class='icon' />
+                <span>Search</span>
+            </button>
+
+        </div>
+    </div>
+</div>
+
+{% comment %} trendings {% endcomment %}
+<div class='trending section'>
+    <div class="secContsiner container">
+        <div   class="secHeading flex">
+            <h3 class="secTitle">
+                Trending Near You
+            </h3>
+
+            <div class="navBtns flex">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">
+                    <i class="fa fa-arrow-left icon leftIcon " ></i>
+                </a>
+                {% endif %}
+            {% if not page_obj.has_previous %}
+                <i class="fa fa-arrow-left unclick" ></i>
+                {% endif %}
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">   
+                    <i class="fa fa-arrow-right icon rightIcon" ></i>
+            </a>
+        {% endif %}
+        {% if not page_obj.has_next %}
+        <i class="fa fa-arrow-right  unclick" ></i>
+
+        {% endif %}
+                
+            </div>
+        </div>
+
+        <div class="carContainer grid">
+            {% comment %} {/* Single Car Div */} {% endcomment %}
+            {% for car in page_obj %}
+
+            <div  class="singleCar grid">
+                <div class="imgDiv">
+                    
+                    <a href="{% url "car_details" car.id %}">
+                        {% comment %} <img src="{{car.image.url}}" alt="{{car.image.url}}" class="logo"> {% endcomment %}
+                        <div id="carImagesCarousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                {% for image in car.images.all %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ image.image.url }}" class="d-block w-100" alt="Car Image">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#carImagesCarousel" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carImagesCarousel" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </a>
+                </div>
+                <h5 class="carTitle">
+                    {{car.title}}
+                </h5>
+                <span class="miles">
+                    {{car.speed}} Miles
+                </span>
+
+                <span class="AWD">
+                    {{car.type_of_cylinder}}
+                </span>
+
+                <div class="price_seller flex">
+                    <span class="price">
+                        ${{car.price}}
+                    </span>
+
+                    <span class="seller">Best Seller</span>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

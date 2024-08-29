@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class='review section'>
+    <div class="secContainer container">
+        <div   class="secHeading flex">
+            <h3 class="secTitle">
+                Recent Reviews
+            </h3>
+
+            <div class="navBtns flex">
+                <i class="fa fa-arrow-left icon leftIcon " ></i>
+                <i class="fa fa-arrow-right icon rightIcon" ></i>
+            </div>
+        </div>
+
+        {% comment %} {/* Review container */} {% endcomment %}
+        <div class="reviewContainer grid">
+            {% comment %} {/* single Review */} {% endcomment %}
+            <div  class="singleReview grid">
+                <div class="imgDiv">
+                        <img src="{% static 'img/direction1.jpeg' %}" class="logo"/>
+                </div>
+                <h5 class="reviewTitle">2023 Cadiallac
+                </h5>
+
+                <span class="desc">
+                    Good cars are safe, fast, affrodable to purchase, economical to
+                    operate, reliable, capacious, confortable and attractive.
+                </span>
+
+                <div class="reviewerDiv flex">
+                    <div class="leftDiv flex">
+                        <div class="reviewerImage">
+                        <img src="{% static 'img/friend-01.jpg' %}" class="logo"/>
+                        </div>
+
+                        <div class="aboutReviewer">
+                            <span class="name">
+                                Abdou Nafaa
+                            </span>
+                            <p>Chef Editor</p>
+                        </div>
+                    </div>
+
+                    <div class="rightDiv flex">
+                        <blockquote>4.48</blockquote>
+                        <i class="fas fa-star fa-sm fa-fw icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            {% comment %} {/* single Review */} {% endcomment %}
+            <div  class="singleReview grid">
+                <div class="imgDiv">
+                        <img src="{% static 'img/direction4.jpg' %}" class="logo"/>
+                </div>
+                <h5 class="reviewTitle">
+                    2024 Cadiallac
+                </h5>
+
+                <span class="desc">
+                    Good cars are safe, fast, affrodable to purchase, economical to
+                    operate, reliable, capacious, confortable and attractive.
+                </span>
+
+                <div class="reviewerDiv flex">
+                    <div class="leftDiv flex">
+                        <div class="reviewerImage">
+                        <img src="{% static 'img/friend-02.jpg' %}" class="logo"/>
+                        </div>
+
+                        <div class="aboutReviewer">
+                            <span class="name">
+                                Ahmed Nafaa
+                            </span>
+                            <p>CYt Admin</p>
+                        </div>
+                    </div>
+
+                    <div class="rightDiv flex">
+                        
+                        <blockquote>4.48</blockquote>
+                        <i class="fas fa-star fa-sm fa-fw icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            {% comment %} {/* single Review */} {% endcomment %}
+            <div  class="singleReview grid">
+                <div class="imgDiv">
+                        <img src="{% static 'img/direction2.Jpg' %}" class="logo"/>
+                </div>
+                <h5 class="reviewTitle">
+                    2025 Cadiallac
+                </h5>
+
+                <span class="desc">
+                    Good cars are safe, fast, affrodable to purchase, economical to
+                    operate, reliable, capacious, confortable and attractive.
+                </span>
+
+                <div class="reviewerDiv flex">
+                    <div class="leftDiv flex">
+                        <div class="reviewerImage">
+                        <img src="{% static 'img/team-01.pNg' %}" class="logo"/>
+                        </div>
+
+                        <div class="aboutReviewer">
+                            <span class="name">
+                                Brahim Nafaa
+                            </span>
+                            <p>Manager Atlantis</p>
+                        </div>
+                    </div>
+
+                    <div class="rightDiv flex">
+                        
+                        <blockquote>5</blockquote>
+                        <i class="fas fa-star fa-sm fa-fw icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

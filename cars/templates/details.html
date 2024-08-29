@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<section class="car-details section">
+
+    <h1 class="heading">Car details</h1>
+
+    <div class="row">
+
+        <div class="column">
+            {% comment %} <form action="" method="post" class="save-car">
+                <button type="submit"><i class="far fa-bookmark"></i> <span>save car</span></button>
+            </form> {% endcomment %}
+
+            <div class="thumb">
+                <div id="carImagesCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for image in car.images.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <a href="{% url "add_like" car.id %}" ><i class="far fa-heart"></i></a>
+                            <img src="{{ image.image.url }}" class="d-block w-100" alt="Car Image">
+                            {% comment %} <h4>{{forloop.counter}}/ {{car.images.Count}}</h4> {% endcomment %}
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#carImagesCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carImagesCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+        <div class="column">
+
+            <div class="tutor">
+                
+                <img src="{{car.seller.image.url}}" alt="">
+                <div>
+                    <h3>{{car.title}}</h3>
+                </div>
+            </div>
+            <div class="details">
+                <h3>{{car.type_of_cylinder}}</h3>
+
+                <div class="flex">
+                    <div class="grid">
+                        <p>Model: {{car.model}} {{car.trim}}</p>
+                        <p>Fuel Type: {{car.fuel_type}}</p>
+                        <p>Price: ${{car.price}}</p>
+                        <p>Speed: {{car.speed}}K Miles</p>
+                        {% comment %} <a href="{% url "add_like" car.id %}" class="secondaryBtn"><i class="far fa-heart"></i>Like</a> {% endcomment %}
+                    </div>
+                    <div class="grid">
+                        <p>with {{car.likes}} Likes</p>
+                        <p >ExteriorColor:  {{car.ExteriorColor}}
+                            <!-- <div style="border-radius: 50%; background-color: {{car.InteriorColor}};width:.8rem;height:.8rem"></div> -->
+                        </p>
+                        <p>InteriorColor: {{car.InteriorColor}}</p>
+                        <a href="{% url "add_carImage" car.id %}" class="primaryBtn">Add Image</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% if messages %}
+<div class='alerts'>
+    <!-- Messages d'erreur -->
+    <div class="alert-errors">
+        {% for message in messages %}
+            {% if 'error' in message.tags %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% elif 'success' in message.tags %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endif %}
+
+
+<section class="comments">
+
+    <h1 class="heading">{{comments.count}} comments</h1>
+
+    {% if update %}
+        <form method="post" action="{% url 'update_comment' car_id=car.id c_id=comment.id %}" class="update-comment">
+        {% csrf_token %}
+        <textarea name="comment_box"  required maxlength="1000" cols="30" rows="5">{{ comment.description }}</textarea>
+        <input type="submit" value="Modifier le commentaire" class="secondaryBtn" name="add_comment">
+        </form>
+    {% else %}
+        <form action="{% url 'add_comment' car.id %}" method="post" class="add-comment">
+        {% csrf_token %}
+        <h3>Ajouter un commentaire</h3>
+        <textarea name="comment_box" placeholder="Entrez votre commentaire" required maxlength="1000" cols="30" rows="5"></textarea>
+        <input type="submit" value="Ajouter un commentaire" class="primaryBtn" name="add_comment">
+        </form>
+    {% endif %}
+
+    <h1 class="heading">user comments</h1>
+
+    <div class="box-container">
+        {% for com in comments %}
+    <div class="box">
+        <div class="user">
+            <img src="{{com.user.image.url}}" alt="">
+            <div>
+                <h3>{{com.user}}</h3>
+                <span>{{com.created_at|date:'d-m-Y'}}</span>
+            </div>
+        </div>
+        <div class="comment-box">{{com.description}}</div>
+    
+        <div class="flex-btn">
+            <a href="{% url 'to_Update' com.car.id com.id %}" class="successBtn">edit comment</a>
+            <a href="{% url 'delete_comment' com.car.id com.id %}" class="deleteBtn">delete comment</a>
+        </div>
+    </div>
+    {% endfor %}
+
+    
+
+    </div>
+
+</section>
+<section class="same_cars">
+
+    <h1 class="heading">Car In The same Seller
+    </h1>
+    <div class="box-container">
+        {% for car in cars %}
+
+        <a class="box" href="{% url 'car_details' car.id%}">
+            {% comment %} <img src="{{car.image.url}}" alt=""> {% endcomment %}
+            {% for image in car.images.all %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img src="{{ image.image.url }}" class="logo" alt="Car Image" style="object-fit: contain;">
+            </div>
+            {% endfor %}
+            <h3>{{car.title}}</h3>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+{% endblock content %}

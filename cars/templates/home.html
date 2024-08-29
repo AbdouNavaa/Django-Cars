@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class='home'>
+    <div class='secContainer'>
+        <div class='homeText'>
+            <span class="homeSpan">
+                Meet your new Car
+            </span>
+            <h1 class="homeTitle">
+                Honda Civic Type R
+            </h1>
+
+            <div class="btns flex">
+                <button  class="btn">MoreDetails</button>
+                <button class="btn primaryBtn">Test Drive</button>
+            </div>
+        </div>
+
+        <div  class="homeImage">
+            <img src="{% static 'img/honda_car3.webp' %}" class="logo"/>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
